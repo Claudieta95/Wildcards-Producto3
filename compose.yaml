@@ -1,0 +1,32 @@
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: biblioteca123
+      MYSQL_DATABASE: biblioteca
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./biblioteca.sql:/docker-entrypoint-initdb.d/biblioteca.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/biblioteca
+      DB_USER: root
+      DB_PASSWORD: biblioteca123
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data:

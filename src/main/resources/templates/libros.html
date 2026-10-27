@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de libros</title>
+
+    <link rel="stylesheet" href="../static/css/estilos.css" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<main>
+    <h1>Gestión de libros</h1>
+
+    <p th:if="${mensaje}" th:text="${mensaje}"></p>
+
+    <p th:if="${error}" th:text="${error}"></p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>ISBN</th>
+            <th>Año de publicación</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="libro : ${libros}">
+            <td th:text="${libro.id}"></td>
+            <td th:text="${libro.titulo}"></td>
+            <td th:text="${libro.autor}"></td>
+            <td th:text="${libro.isbn}"></td>
+            <td th:text="${libro.anioPublicacion}"></td>
+            <td>
+                <a class="accion-editar"
+                   th:href="@{/libros/editar/{id}(id=${libro.id})}">
+                    Editar
+                </a>
+                |
+                <form th:action="@{/libros/eliminar/{id}(id=${libro.id})}"
+                      method="post"
+                      style="display: inline;"
+                      onsubmit="return confirm('¿Seguro que quieres eliminar este libro?');">
+                    <button type="submit" class="accion-eliminar">
+                        Eliminar
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="contenedor-boton">
+        <a class="boton-anadir" th:href="@{/libros/nuevo}">
+            Añadir libro
+        </a>
+    </div>
+</main>
+
+</body>
+</html>
