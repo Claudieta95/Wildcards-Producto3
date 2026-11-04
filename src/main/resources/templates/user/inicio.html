@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zona de usuario - Biblioteca</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <link rel="stylesheet" th:href="@{/css/zona-usuario.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<main>
+    <h1>Bienvenido a la biblioteca</h1>
+
+    <p>Desde esta zona puedes consultar los libros
+       disponibles y acceder a tus préstamos.</p>
+
+    <div class="contenedor-boton">
+        <a th:href="@{/user/libros}" class="boton-anadir">
+            Consultar libros
+        </a>
+
+        <a th:href="@{/user/prestamos}" class="boton-anadir">
+            Mis préstamos
+        </a>
+    </div>
+</main>
+
+</body>
+</html>
