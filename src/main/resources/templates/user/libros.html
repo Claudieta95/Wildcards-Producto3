@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de libros</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <link rel="stylesheet" th:href="@{/css/zona-usuario.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<main>
+    <h1>Catálogo de libros</h1>
+
+    <p>Consulta los libros disponibles en la biblioteca.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>ISBN</th>
+                <th>Año de publicación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="libro : ${libros}">
+                <td th:text="${libro.titulo}"></td>
+                <td th:text="${libro.autor}"></td>
+                <td th:text="${libro.isbn}"></td>
+                <td th:text="${libro.anioPublicacion}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="contenedor-boton">
+        <a th:href="@{/user/inicio}" class="boton-anadir">
+            Volver al inicio
+        </a>
+    </div>
+</main>
+
+</body>
+</html>

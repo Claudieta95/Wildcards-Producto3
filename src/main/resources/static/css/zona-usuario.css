@@ -1,0 +1,22 @@
+/* ZONA DE USUARIO - PRODUCTO 3 */
+
+main p {
+    color: #24394B;
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+main .contenedor-boton {
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+main .boton-anadir:hover {
+    background-color: #3F6078;
+}
+
+@media (max-width: 800px) {
+    main .contenedor-boton {
+        justify-content: flex-start;
+    }
+}
