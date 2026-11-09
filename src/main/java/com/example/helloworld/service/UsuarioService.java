@@ -31,22 +31,16 @@ public class UsuarioService {
 
         // Comprobar la longitud de la contraseña
         if (datos.getPassword().length() < 8) {
-            throw new IllegalArgumentException(
-                    "La contraseña debe tener al menos 8 caracteres"
-            );
+            throw new IllegalArgumentException("La contraseña debe tener al menos 8 caracteres");
         }
 
         // Comprobar el formato del correo electrónico
         if (!datos.getEmail().matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
-            throw new IllegalArgumentException(
-                    "El formato del correo electrónico no es válido"
-            );
+            throw new IllegalArgumentException("El formato del correo electrónico no es válido");
         }
 
         // Comprobar si el correo electrónico ya está registrado
-        if (usuarioRepository.findByEmail(datos.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("El correo electrónico ya está registrado");
-        }
+        if (usuarioRepository.findByEmail(datos.getEmail()).isPresent()) {throw new IllegalArgumentException("El correo electrónico ya está registrado");}
 
         // Crear un nuevo usuario
         Usuario usuario = new Usuario(
