@@ -1,3 +1,4 @@
+
 package com.example.helloworld.controller;
 
 import com.example.helloworld.model.Libro;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("/admin/libros")
 public class LibroController {
 
     private final LibroRepository libroRepository;
@@ -20,19 +22,19 @@ public class LibroController {
         this.prestamoRepository = prestamoRepository;
     }
 
-    @GetMapping("/libros")
+    @GetMapping
     public String listarLibros(Model model) {
         model.addAttribute("libros", libroRepository.findAll());
-        return "libros";
+        return "admin-libros";
     }
 
-    @GetMapping("/libros/nuevo")
+    @GetMapping("/nuevo")
     public String nuevoLibro(Model model) {
         model.addAttribute("libro", new Libro());
         return "formulario-libro";
     }
 
-    @GetMapping("/libros/editar/{id}")
+    @GetMapping("/editar/{id}")
     public String editarLibro(@PathVariable Long id, Model model) {
         Libro libro = libroRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(
@@ -42,13 +44,13 @@ public class LibroController {
         return "formulario-libro";
     }
 
-    @PostMapping("/libros/guardar")
+    @PostMapping("/guardar")
     public String guardarLibro(@ModelAttribute Libro libro) {
         libroRepository.save(libro);
-        return "redirect:/libros";
+        return "redirect:/admin/libros";
     }
 
-    @PostMapping("/libros/eliminar/{id}")
+    @PostMapping("/eliminar/{id}")
     public String eliminarLibro(@PathVariable Long id,
                                 RedirectAttributes redirectAttributes) {
 
@@ -57,7 +59,7 @@ public class LibroController {
                     "error",
                     "No se puede eliminar el libro porque tiene préstamos asociados."
             );
-            return "redirect:/libros";
+            return "redirect:/admin/libros";
         }
 
         if (libroRepository.existsById(id)) {
@@ -68,6 +70,6 @@ public class LibroController {
             );
         }
 
-        return "redirect:/libros";
+        return "redirect:/admin/libros";
     }
 }
