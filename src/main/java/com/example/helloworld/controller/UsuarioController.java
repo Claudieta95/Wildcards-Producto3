@@ -1,3 +1,4 @@
+
 package com.example.helloworld.controller;
 
 import com.example.helloworld.repository.UsuarioRepository;
@@ -14,7 +15,7 @@ public class UsuarioController {
         this.usuarioRepository = usuarioRepository;
     }
 
-    @GetMapping("/usuarios")
+    @GetMapping("/admin/usuarios")
     public String listarUsuarios(Model model) {
         model.addAttribute("usuarios", usuarioRepository.findAll());
         return "usuarios";

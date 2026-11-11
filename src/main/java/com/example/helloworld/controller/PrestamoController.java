@@ -15,11 +15,9 @@ public class PrestamoController {
         this.prestamoRepository = prestamoRepository;
     }
 
-    @GetMapping("/prestamos")
+    @GetMapping("/admin/prestamos")
     public String listarPrestamos(Model model) {
-
         model.addAttribute("prestamos", prestamoRepository.findAll());
-
         return "prestamos";
     }
 }
