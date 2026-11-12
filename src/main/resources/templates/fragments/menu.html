@@ -1,5 +1,8 @@
+
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <body>
 
@@ -7,9 +10,46 @@
     <div class="biblioteca">Biblioteca</div>
 
     <div class="menu">
-        <a th:href="@{/libros}">Libros</a>
-        <a th:href="@{/usuarios}">Usuarios</a>
-        <a th:href="@{/prestamos}">Préstamos</a>
+
+        <!-- Opciones para usuarios y administradores -->
+        <a th:href="@{/user/inicio}"
+           sec:authorize="isAuthenticated()">
+            Inicio
+        </a>
+
+        <a th:href="@{/user/libros}"
+           sec:authorize="hasAnyRole('USER', 'ADMIN')">
+            Catálogo
+        </a>
+
+        <a th:href="@{/user/prestamos}"
+           sec:authorize="hasAnyRole('USER', 'ADMIN')">
+            Mis préstamos
+        </a>
+
+        <!-- Opciones exclusivas para administradores -->
+        <a th:href="@{/admin/libros}"
+           sec:authorize="hasRole('ADMIN')">
+            Gestionar libros
+        </a>
+
+        <a th:href="@{/admin/usuarios}"
+           sec:authorize="hasRole('ADMIN')">
+            Usuarios
+        </a>
+
+        <a th:href="@{/admin/prestamos}"
+           sec:authorize="hasRole('ADMIN')">
+            Gestionar préstamos
+        </a>
+
+        <!-- Cerrar sesión -->
+        <form th:action="@{/logout}"
+              method="post"
+              sec:authorize="isAuthenticated()">
+            <button type="submit">Cerrar sesión</button>
+        </form>
+
     </div>
 </nav>
 

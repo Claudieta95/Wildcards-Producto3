@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de libros - Biblioteca</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<main>
+    <h1>Administración de libros</h1>
+
+    <p>Gestiona los libros de la biblioteca.</p>
+
+    <p th:if="${mensaje}" th:text="${mensaje}" style="color: green;"></p>
+    <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+    <div class="contenedor-boton">
+        <a th:href="@{/admin/libros/nuevo}" class="boton-anadir">
+            Añadir libro
+        </a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>ISBN</th>
+            <th>Año de publicación</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="libro : ${libros}">
+            <td th:text="${libro.titulo}"></td>
+            <td th:text="${libro.autor}"></td>
+            <td th:text="${libro.isbn}"></td>
+            <td th:text="${libro.anioPublicacion}"></td>
+            <td>
+                <a th:href="@{/admin/libros/editar/{id}(id=${libro.id})}">
+                    Editar
+                </a>
+
+                <form th:action="@{/admin/libros/eliminar/{id}(id=${libro.id})}"
+                      method="post"
+                      style="display: inline;">
+                    <button type="submit"
+                            onclick="return confirm('¿Seguro que quieres eliminar este libro?');">
+                        Eliminar
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="contenedor-boton">
+        <a th:href="@{/user/inicio}" class="boton-anadir">
+            Volver al inicio
+        </a>
+    </div>
+</main>
+
+</body>
+</html>

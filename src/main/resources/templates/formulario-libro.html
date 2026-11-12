@@ -19,7 +19,7 @@
     </h1>
 
     <form class="formulario-libro"
-          th:action="@{/libros/guardar}"
+          th:action="@{/admin/libros/guardar}"
           th:object="${libro}"
           method="post">
 
@@ -40,7 +40,7 @@
 
         <div class="botones-formulario">
             <button type="submit" class="boton-guardar">Guardar</button>
-            <a class="boton-cancelar" th:href="@{/libros}">Cancelar</a>
+            <a class="boton-cancelar" th:href="@{/admin/libros}">Cancelar</a>
         </div>
 
     </form>
